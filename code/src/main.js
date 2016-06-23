@@ -1,6 +1,9 @@
 window.addEventListener('load',
     function() {
         if (scormHandler.exists()) {
+            var firstPage = document.getElementById("firstPage");
+            firstPage.style.display = "none";
+            
             var currentHours = scormHandler.getCurrentHours();
             var totalHours   = scormHandler.getTotalHours();
             var percentage   = currentHours / totalHours;
@@ -9,7 +12,8 @@ window.addEventListener('load',
             
             mapHandler.drawIcons();
         } else {
-            
+            var mainPage  = document.getElementById("mainPage");
+            mainPage.style.display = "none";
         }
     },
 false);
