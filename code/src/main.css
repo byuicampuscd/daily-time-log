@@ -28,8 +28,12 @@ h1 {
     box-shadow: 1px 1px 5px #888888;
 }
 
-div[id="hoursSection"] {
+div#hoursSection {
     margin: 0 auto;
     overflow: auto;
     width: 50%;
+}
+
+#map {
+    max-height: 350px;
 }

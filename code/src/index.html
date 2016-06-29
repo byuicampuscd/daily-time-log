@@ -1,13 +1,13 @@
 <html>
 
 <head>
-    <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="scormHandler.js"></script>
     <script type="text/javascript" src="screenChooser.js"></script>
     <script type="text/javascript" src="entryHandler.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.2.5/svg.min.js"></script>
     <script type="text/javascript" src="../include/progressMap.js"></script>
     <script type="text/javascript" src="mapHandler.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 
     <link type="text/css" href="main.css" rel="stylesheet" />
     <script>
@@ -26,7 +26,7 @@
         <div id="hoursSection">
             <select class="hoursSubmission" id="hours"></select>
 
-            <input class="hoursSubmission" type="button" onclick="screenChooser.switchScreens()" value="Submit Hours" />
+            <input class="hoursSubmission" type="button" onclick="switchScreens()" value="Submit Hours" />
         </div>
 
         <script>
@@ -38,11 +38,7 @@
         </script>
     </div>
     <div class="page" id="mainPage">
-        <div id="map">
-            <svg>
-                <image xmlns="http://www.w3.org/2000/svg" id="SvgjsImage1012" width="1104" height="350" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="img/FantasyMap.png" />
-            </svg>
-        </div>
+        <div id="map"></div>
 
         <div id="instructions">
         <p>This is where you will report your completed externship hours each week. In order for you to receive credit for your externship you must complete <u>at least</u> 200 contact hours. Each week you will type in the number of hours completed, and press "Update" below. You can monitor your progress using the map or using the "Reported Externship Hours" section below. You will also see your progress reflected in your grade for this assignment. You will start with a 0%, but your grade will automatically increase as you report your externship hours. Make sure to report your hours weekly.</p>
@@ -60,7 +56,9 @@
                 <span id="currentHours"></span> /
                 <span id="totalHours"></span>
             </div>
-            <div id="entries"></div>
+            <div id="entries">
+            
+            </div>
         </div>
     </div>
 </body>
