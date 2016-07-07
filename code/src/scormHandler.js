@@ -1,15 +1,16 @@
 var scormHandler = (function() {
     var currentHours = null;
     var totalHours   = null;
-    var entries      = null;
+    var entries      = [];
     var SCORM        = false;
     
     return {
         exists:          function() { return SCORM; },
-        getEntries:      function() { return entries; },
-        saveEntries:     function(entries) { },
+        getEntries:      function() { console.log(entries); return entries; },
+        saveEntries:     function() { },
         getTotalHours:   function() { return totalHours; },
-        saveTotalHours:  function(totalHours) { },
-        getCurrentHours: function() { return currentHours; }
+        saveTotalHours:  function() { },
+        getCurrentHours: function() { return currentHours; },
+        getSCORM: function() { SCORM = true; }
     };
 })();

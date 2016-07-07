@@ -2,6 +2,7 @@ var screenChooser = (function() {
     var firstScreen = true;
     
     return {
+        setFirstScreen: function(screen) { firstScreen = screen; },
         switchScreens: function() {
             firstScreen = !firstScreen;
             if (firstScreen) {

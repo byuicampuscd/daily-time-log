@@ -5,7 +5,7 @@
  **/
 
 var entryHandler = (function() {
-    var entries = scormHandler.getEntries();
+    var entries = [];
     
     return {
         getEntries: function() { return entries; },
@@ -14,11 +14,49 @@ var entryHandler = (function() {
         },
         updateEntry: function(id, hours, date) {
             if (id <= entries.length) {
-                entries[id] = { hours: hours, date: date }; 
+                entries[id] = [ id, hours, date ]; 
             } else {
-                entries.push({ hours: hours, date: date});
+                entries.push([ id, hours, date ]);
             }
         },
-        saveEntries: function() { scormHandler.saveEntries(entries); }
+        displayEntries: function() {
+            var headerText = [ "Entry", "Hours Worked", "Date Entered/Updated" ]
+            var entriesDiv = document.getElementById("entries");
+            var table = document.createElement("table");
+            var tbody = document.createElement("tbody");
+            var row = document.createElement("tr");
+            
+            // Display Headers
+            for (var i = 0; i < headerText.length; ++i) {
+                var header = document.createElement("th");
+                header.innerHTML = headerText[i];
+                row.appendChild(header);
+            }
+            tbody.appendChild(row);
+            
+            // Display Entries
+            for (var i = 0; i < entries.length; ++i) {
+                row = document.createElement("tr");
+                for (var j = 0; j < headerText.length; ++j) {
+                    var cell = document.createElement("td");
+                    cell.innerHTML = entries[i][j];
+                    row.appendChild(cell);
+                }
+                tbody.appendChild(row);
+            }
+            
+            // Display Button
+            row = document.createElement("tr");
+            row.colSpan = "3";
+            var button = document.createElement("button");
+            button.onclick = "";
+            button.innerHTML = "Update";
+            row.appendChild(button);
+            
+            tbody.appendChild(row);
+            table.appendChild(tbody);
+            entriesDiv.appendChild(table);
+        },
+        setEntries: function(entries) { entries = entries; }
     };
 })();

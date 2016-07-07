@@ -1,23 +1,44 @@
+/*
+    STEPS:
+        1. Which screen should we load
+        2. Main Screen
+            1. Get total number of hours, current hours, and percentage
+            2. Get the entries/Save the entries to entryHandler
+            3. Display the entries
+            4. Display Map
+            5. Display Path
+        3. First Screen
+            1. Nothing
+*/
+
 function start() {
+    // The firstScreen is opposite because screenChooser.switchScreens swaps it.
     // Main Screen
     if (scormHandler.exists()) {
-        screenChooser.firstScreen = true;
+        var currentHours = scormHandler.getCurrentHours();
+        var totalHours   = scormHandler.getTotalHours();
+        var percentage   = currentHours / totalHours;
         
-        displayMap();
+        entryHandler.setEntries(scormHandler.getEntries());
+        entryHandler.displayEntries();
+        
+        if (percentage == null || percentage == undefined || isNaN(percentage)) {
+            percentage = 0;
+        }
+        
+        progressMap.startup("map", percentage);
+        
+        screenChooser.setFirstScreen(true);
     }
     // First Screen
     else {
-        screenChooser.firstScreen = false;
+        screenChooser.setFirstScreen(false);
     }
     
     screenChooser.switchScreens();
 }
 
 function displayMap() {
-    var currentHours = scormHandler.getCurrentHours();
-    var totalHours   = scormHandler.getTotalHours();
-    var percentage   = currentHours / totalHours;
-    
     progressMap.startup("map", percentage);
 }
 
@@ -30,12 +51,10 @@ function displayEntries() {
     }
 }
 
-function swtichScreens() {
+function switchScreens() {
     screenChooser.switchScreens();
-    
-    if (screenChooser.mainScreen) {
-        displayMap();
-    }
+    scormHandler.getSCORM();
+    start();
 }
 
 function updateEntry() {
@@ -46,11 +65,11 @@ function createNewEntry() {
     
 }
 
-function saveTotalHours(totalHours) {
+/*function saveTotalHours(totalHours) {
     scormHandler.saveTotalHours(totalHours);
 }
 
-saveTotalHours(document.getElementById("hours").value);
+saveTotalHours(document.getElementById("hours").value);*/
 
 window.addEventListener('load', start, false);
 /*
