@@ -14,7 +14,11 @@ var entryHandler = (function() {
         },
         updateEntry: function(id, hours, date) {
             if (id <= entries.length) {
-                entries[id] = [ id, hours, date ]; 
+                entries[id] = [
+                    { data: id, type: "HTML" },
+                    { data: hours, type: "ELEMENT" },
+                    { data: date, type: "HTML" }
+                ]; 
             } else {
                 entries.push([ id, hours, date ]);
             }
@@ -39,11 +43,36 @@ var entryHandler = (function() {
                 row = document.createElement("tr");
                 for (var j = 0; j < headerText.length; ++j) {
                     var cell = document.createElement("td");
-                    cell.innerHTML = entries[i][j];
+                    if (entries[i][j].type == "HTML") {
+                        cell.innerHTML = entries[i][j].data;
+                    } else if (entries[i][j].type == "ELEMENT") {
+                        var input = document.createElement("input");
+                        input.value = entries[i][j].data;
+                        cell.appendChild(input);
+                    }
                     row.appendChild(cell);
                 }
                 tbody.appendChild(row);
             }
+            
+            // Display New Entry
+            var newEntry = document.createElement("input");
+            newEntry.type = "text";
+            
+            row = document.createElement("tr");
+            
+            var cell = document.createElement("td");
+            cell.innerHTML = "Entry " + (i + 1);
+            row.appendChild(cell);
+            
+            var cell = document.createElement("td");            
+            cell.appendChild(newEntry);
+            row.appendChild(cell);
+            
+            var cell = document.createElement("td");
+            row.appendChild(cell);
+            
+            tbody.appendChild(row);
             
             // Display Button
             row = document.createElement("tr");
