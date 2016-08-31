@@ -1,3 +1,6 @@
+/*jslint plusplus: true, browser:true */
+/*global scormHandler, entryHandler, progressMap, screenChooser */
+
 /*
     STEPS:
         1. Which screen should we load
@@ -14,24 +17,24 @@
 function start() {
     // The firstScreen is opposite because screenChooser.switchScreens swaps it.
     // Main Screen
+    "use strict";
+    
     if (scormHandler.exists()) {
-        var currentHours = scormHandler.getCurrentHours();
-        var totalHours   = scormHandler.getTotalHours();
-        var percentage   = currentHours / totalHours;
+        var currentHours = scormHandler.getCurrentHours(),
+            totalHours   = scormHandler.getTotalHours(),
+            percentage   = currentHours / totalHours;
         
         entryHandler.setEntries(scormHandler.getEntries());
         entryHandler.displayEntries();
         
-        if (percentage == null || percentage == undefined || isNaN(percentage)) {
+        if (percentage === null || percentage === undefined || isNaN(percentage)) {
             percentage = 0;
         }
         
         progressMap.startup("map", percentage);
         
         screenChooser.setFirstScreen(true);
-    }
-    // First Screen
-    else {
+    } else {
         screenChooser.setFirstScreen(false);
     }
     
@@ -39,29 +42,36 @@ function start() {
 }
 
 function displayMap() {
+    "use strict";
     progressMap.startup("map", percentage);
 }
 
 function displayEntries() {
-    var entries = scormHandler.getEntries();
+    "use strict";
+    var entries = scormHandler.getEntries(),
+        i,
+        entryDiv;
     
-    for (var i = 0; i < entries.length; ++i) {
-        var entryDiv = document.getElementById("entries");
+    for (i = 0; i < entries.length; ++i) {
+        entryDiv = document.getElementById("entries");
         entryDiv.appendChild();
     }
 }
 
 function switchScreens() {
+    "use strict";
     screenChooser.switchScreens();
     scormHandler.getSCORM();
     start();
 }
 
 function updateEntry() {
+    "use strict";
     
 }
 
 function createNewEntry() {
+    "use strict";
     
 }
 
